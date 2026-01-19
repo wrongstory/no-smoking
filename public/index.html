@@ -3,8 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>금연 캘린더 - 함께하는 금연</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="theme-color" content="#6366F1">
+
+  <link rel="apple-touch-icon" href="icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <link rel="stylesheet" href="style.css">
 
   <!-- Google Fonts -->
@@ -382,6 +391,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
     });
+    // [추가] PWA 서비스 워커 등록
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('서비스 워커 등록 완료!'))
+        .catch((error) => console.log('서비스 워커 실패:', error));
+    }
   </script>
   <div class="modal-overlay" id="cheerHistoryModalOverlay">
     <div class="modal cheer-history-modal">
