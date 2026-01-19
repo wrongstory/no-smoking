@@ -1,89 +1,284 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.8.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.8.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.8.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 금연 캘린더 - 함께하는 금연</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- 로그인 화면 -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🚭 금연 캘린더</h1>
+                <p>함께라서 할 수 있어요 💕</p>
+            </div>
+            
+            <div class="login-form">
+                <div class="input-group">
+                    <label for="usernameInput">👤 누구세요?</label>
+                    <select id="usernameInput">
+                        <option value="">선택해주세요</option>
+                        <option value="girlfriend">💕 여자친구</option>
+                        <option value="myungwoo">💪 명우</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="passwordInput">🔑 비밀번호</label>
+                    <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
+                </div>
+                
+                <button class="login-btn" id="loginBtn">로그인 💖</button>
+                
+                <p class="login-error hidden" id="loginError">
+                    비밀번호가 틀렸어요 😢
+                </p>
+            </div>
+            
+            <div class="login-hint">
+                <p>🔒 둘만의 비밀 공간이에요</p>
+            </div>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <div class="app-container hidden" id="appContainer">
+        <!-- 헤더 영역 -->
+        <header class="app-header">
+            <div class="header-top">
+                <h1>🚭 금연 캘린더</h1>
+                <button class="logout-btn" id="logoutBtn">로그아웃</button>
+            </div>
+            <p class="subtitle">함께라서 할 수 있어요 💪</p>
+            
+            <!-- 현재 사용자 표시 -->
+            <div class="current-user" id="currentUserDisplay">
+                <span class="user-badge" id="userBadge">👩 여자친구</span>
+                <span class="user-role" id="userRole">기록 모드</span>
+            </div>
+            
+            <!-- 연결 상태 표시 -->
+            <div class="connection-status" id="connectionStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">연결 확인 중...</span>
+            </div>
+        </header>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+        <!-- 금연 시작일 배너 -->
+        <section class="start-date-banner" id="startDateBanner">
+            <div class="start-date-info">
+                <span class="start-date-icon">🌱</span>
+                <div class="start-date-text">
+                    <span class="start-date-label">금연 시작일</span>
+                    <span class="start-date-value" id="startDateValue">설정해주세요</span>
+                </div>
+                <div class="days-since">
+                    <span class="days-count" id="daysSinceStart">0</span>
+                    <span class="days-label">일차</span>
+                </div>
+            </div>
+            <button class="edit-start-date-btn" id="editStartDateBtn">✏️</button>
+        </section>
+
+        <!-- 통계 대시보드 -->
+        <section class="stats-dashboard">
+            <div class="stat-card streak">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="currentStreak">0</span>
+                    <span class="stat-label">연속 금연</span>
+                </div>
+            </div>
+            <div class="stat-card best">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="bestStreak">0</span>
+                    <span class="stat-label">최장 기록</span>
+                </div>
+            </div>
+            <div class="stat-card total">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-info">
+                    <span class="stat-value" id="totalDays">0</span>
+                    <span class="stat-label">총 금연일</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 월별 성공률 -->
+        <section class="monthly-progress">
+            <div class="progress-header">
+                <span>이번 달 성공률</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </section>
+
+        <!-- 응원 메시지 배너 -->
+        <section class="cheer-banner" id="cheerBanner">
+            <span class="cheer-icon">💌</span>
+            <p id="cheerMessage">오늘도 힘내요!</p>
+        </section>
+
+        <!-- 캘린더 네비게이션 -->
+        <nav class="calendar-nav">
+            <button id="prevMonth" class="nav-btn">◀</button>
+            <h2 id="currentMonth">2025년 1월</h2>
+            <button id="nextMonth" class="nav-btn">▶</button>
+        </nav>
+
+        <!-- 캘린더 그리드 -->
+        <section class="calendar-container">
+            <div class="calendar-weekdays">
+                <span>일</span>
+                <span>월</span>
+                <span>화</span>
+                <span>수</span>
+                <span>목</span>
+                <span>금</span>
+                <span>토</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </section>
+
+        <!-- 범례 -->
+        <section class="legend">
+            <div class="legend-item">
+                <span class="legend-dot success"></span>
+                <span>금연 성공</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot fail"></span>
+                <span>아쉬워요</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot empty"></span>
+                <span>미기록</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- 날짜 클릭 시 팝업 모달 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="dayModal">
+            <button class="modal-close" id="modalClose">✕</button>
+            
+            <div class="modal-header">
+                <h3 id="modalDate">2025년 1월 1일</h3>
+            </div>
+
+            <!-- 사용자 모드: 기록하기 -->
+            <div class="modal-content user-mode" id="userModeContent">
+                <div class="smoking-check">
+                    <p>오늘 금연했나요?</p>
+                    <div class="check-buttons">
+                        <button class="check-btn success-btn" data-value="true">
+                            ✅ 네, 성공!
+                        </button>
+                        <button class="check-btn fail-btn" data-value="false">
+                            😢 아니요...
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="memo-section">
+                    <label for="memoInput">오늘 한마디 💬</label>
+                    <textarea id="memoInput" placeholder="오늘의 기분이나 다짐을 적어보세요..."></textarea>
+                </div>
+
+                <button class="save-btn" id="saveRecord">💾 저장하기</button>
+            </div>
+
+            <!-- 파트너 모드: 응원하기 -->
+            <div class="modal-content partner-mode hidden" id="partnerModeContent">
+                <div class="record-display" id="recordDisplay">
+                    <div class="record-status" id="recordStatus">
+                        <!-- 기록된 상태 표시 -->
+                    </div>
+                    <div class="record-memo" id="recordMemo">
+                        <!-- 메모 표시 -->
+                    </div>
+                </div>
+
+                <div class="stamp-section">
+                    <p>도장을 찍어주세요! 🎉</p>
+                    <div class="stamp-buttons">
+                        <button class="stamp-btn" data-stamp="👍">
+                            <span class="stamp-emoji">👍</span>
+                            <span class="stamp-label">잘했어요</span>
+                        </button>
+                        <button class="stamp-btn" data-stamp="💖">
+                            <span class="stamp-emoji">💖</span>
+                            <span class="stamp-label">최고야</span>
+                        </button>
+                        <button class="stamp-btn" data-stamp="💪">
+                            <span class="stamp-emoji">💪</span>
+                            <span class="stamp-label">힘내요</span>
+                        </button>
+                        <button class="stamp-btn negative" data-stamp="😢">
+                            <span class="stamp-emoji">😢</span>
+                            <span class="stamp-label">아쉬워요</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cheer-input-section">
+                    <label for="cheerInput">응원 메시지 남기기 💌</label>
+                    <textarea id="cheerInput" placeholder="따뜻한 응원의 말을 적어주세요..."></textarea>
+                    <button class="cheer-save-btn" id="saveCheer">💌 응원 보내기</button>
+                </div>
+            </div>
+
+            <!-- 현재 도장 표시 -->
+            <div class="current-stamp" id="currentStamp">
+                <!-- 찍힌 도장 표시 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 도장 애니메이션 오버레이 -->
+    <div class="stamp-animation" id="stampAnimation">
+        <span class="big-stamp" id="bigStamp">👍</span>
+    </div>
+
+    <!-- 시작일 설정 모달 -->
+    <div class="modal-overlay" id="startDateModalOverlay">
+        <div class="modal start-date-modal">
+            <button class="modal-close" id="startDateModalClose">✕</button>
+            
+            <div class="modal-header">
+                <h3>🌱 금연 시작일 설정</h3>
+            </div>
+
+            <div class="start-date-form">
+                <p class="form-description">금연을 시작한 날짜를 선택해주세요!</p>
+                
+                <div class="date-input-group">
+                    <label for="startDateInput">📅 시작일</label>
+                    <input type="date" id="startDateInput">
+                </div>
+
+                <div class="motivation-input-group">
+                    <label for="motivationInput">💭 금연 다짐 한마디</label>
+                    <textarea id="motivationInput" placeholder="왜 금연을 결심했나요? 힘들 때 다시 읽어보세요..."></textarea>
+                </div>
+
+                <button class="save-start-date-btn" id="saveStartDateBtn">💾 저장하기</button>
+                
+                <button class="clear-start-date-btn" id="clearStartDateBtn">🗑️ 시작일 초기화</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
 </html>
