@@ -1,25 +1,33 @@
 /* ============================================
-   금연 캘린더 - 스타일시트
-   밝고 따뜻한 파스텔 톤 디자인
+   금연 캘린더 - 현대적 스타일시트
+   글래스모피즘 & Lucide Icons
    ============================================ */
 
-/* CSS 변수 정의 - 테마 색상 */
+/* CSS 변수 정의 */
 :root {
-    --primary: #FF9A9E;
-    --primary-light: #FECFEF;
-    --secondary: #A8EDEA;
-    --secondary-light: #FED6E3;
-    --success: #A8E6CF;
-    --success-dark: #56C596;
-    --fail: #FFB7B2;
-    --fail-dark: #FF6B6B;
-    --warning: #FFEAA7;
-    --background: #FFF5F5;
-    --card-bg: #FFFFFF;
-    --text-primary: #5D5D5D;
-    --text-secondary: #8B8B8B;
-    --shadow: rgba(255, 154, 158, 0.2);
-    --border-radius: 16px;
+    --primary: #6366F1;
+    --primary-light: #818CF8;
+    --primary-dark: #4F46E5;
+    --secondary: #EC4899;
+    --secondary-light: #F472B6;
+    --success: #10B981;
+    --success-light: #34D399;
+    --fail: #F43F5E;
+    --fail-light: #FB7185;
+    --warning: #F59E0B;
+    --background: #0F172A;
+    --background-light: #1E293B;
+    --card-bg: rgba(30, 41, 59, 0.8);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --border-radius: 20px;
+    --border-radius-sm: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 기본 리셋 및 폰트 */
@@ -30,11 +38,71 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    background: linear-gradient(135deg, var(--background) 0%, var(--primary-light) 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--background);
     min-height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Lucide 아이콘 기본 스타일 */
+[data-lucide] {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+/* 배경 장식 */
+.bg-decoration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+}
+
+.bg-circle-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--primary);
+    top: -100px;
+    right: -100px;
+    animation: float 20s ease-in-out infinite;
+}
+
+.bg-circle-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--secondary);
+    bottom: -50px;
+    left: -50px;
+    animation: float 25s ease-in-out infinite reverse;
+}
+
+.bg-circle-3 {
+    width: 200px;
+    height: 200px;
+    background: var(--success);
+    top: 50%;
+    left: 50%;
+    animation: float 15s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
 }
 
 /* ============================================
@@ -46,25 +114,51 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .login-card {
     background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
-    padding: 40px 32px;
+    padding: 48px 40px;
     width: 100%;
-    max-width: 360px;
-    box-shadow: 0 10px 40px var(--shadow);
-    text-align: center;
+    max-width: 400px;
+    box-shadow: var(--shadow);
 }
 
 .login-header {
-    margin-bottom: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.login-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-icon [data-lucide] {
+    width: 36px;
+    height: 36px;
+    color: white;
 }
 
 .login-header h1 {
-    font-size: 1.8rem;
-    color: var(--primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 8px;
 }
 
@@ -79,171 +173,127 @@ body {
 
 .input-group {
     margin-bottom: 20px;
-    text-align: left;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
     font-size: 0.9rem;
-    color: var(--text-primary);
     font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.input-group label [data-lucide] {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
 }
 
 .input-group select,
 .input-group input {
     width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #EEE;
-    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
     font-size: 1rem;
     font-family: inherit;
-    transition: border-color 0.3s ease;
-    background: white;
+    transition: var(--transition);
+    background: var(--glass-bg);
+    color: var(--text-primary);
+}
+
+.input-group select option {
+    background: var(--background-light);
+    color: var(--text-primary);
 }
 
 .input-group select:focus,
 .input-group input:focus {
     outline: none;
     border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
 }
 
 .login-btn {
     width: 100%;
     padding: 16px;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--primary) 0%, #FF6B95 100%);
+    border-radius: var(--border-radius-sm);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     margin-top: 8px;
 }
 
 .login-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--shadow);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+}
+
+.login-btn [data-lucide] {
+    width: 18px;
+    height: 18px;
 }
 
 .login-error {
     margin-top: 16px;
-    padding: 12px;
-    background: var(--fail);
-    border-radius: 8px;
-    color: #C0392B;
+    padding: 14px;
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    border-radius: var(--border-radius-sm);
+    color: var(--fail-light);
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-error [data-lucide] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
 }
 
 .login-hint {
-    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-muted);
     font-size: 0.85rem;
+}
+
+.login-hint [data-lucide] {
+    width: 16px;
+    height: 16px;
 }
 
 /* ============================================
-   헤더 수정 스타일
+   앱 컨테이너
    ============================================ */
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-}
-
-.header-top h1 {
-    font-size: 1.6rem;
-    color: var(--primary);
-}
-
-.logout-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 20px;
-    background: #F5F5F5;
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-    background: var(--fail);
-    color: white;
-}
-
-.current-user {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 16px;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, var(--primary-light) 0%, #FFE4EC 100%);
-    border-radius: 30px;
-}
-
-.user-badge {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.user-role {
-    font-size: 0.85rem;
-    padding: 4px 12px;
-    background: white;
-    border-radius: 20px;
-    color: var(--primary);
-    font-weight: 500;
-}
-
-/* 연결 상태 표시 */
-.connection-status {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 12px;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #FFC107;
-    animation: pulse 2s infinite;
-}
-
-.connection-status.online .status-dot {
-    background: #4CAF50;
-    animation: none;
-}
-
-.connection-status.offline .status-dot {
-    background: #FF9800;
-    animation: none;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-/* 앱 컨테이너 */
 .app-container {
     max-width: 480px;
     margin: 0 auto;
     padding: 20px;
     padding-bottom: 40px;
+    position: relative;
+    z-index: 1;
 }
 
-.app-container.hidden {
-    display: none;
-}
-
+.app-container.hidden,
 .login-container.hidden {
     display: none;
 }
@@ -252,77 +302,178 @@ body {
    헤더 스타일
    ============================================ */
 .app-header {
-    text-align: center;
     margin-bottom: 24px;
 }
 
-.app-header h1 {
-    font-size: 1.8rem;
-    color: var(--primary);
-    margin-bottom: 4px;
-}
-
-.subtitle {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 16px;
 }
 
-/* 모드 전환 버튼 */
-.mode-switch {
+.logo {
     display: flex;
-    gap: 8px;
-    justify-content: center;
-    background: var(--card-bg);
-    padding: 6px;
-    border-radius: 30px;
-    box-shadow: 0 2px 10px var(--shadow);
+    align-items: center;
+    gap: 12px;
 }
 
-.mode-btn {
-    flex: 1;
-    padding: 10px 20px;
+.logo [data-lucide] {
+    width: 28px;
+    height: 28px;
+    color: var(--primary-light);
+}
+
+.logo h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--text-primary), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logout-btn {
+    width: 44px;
+    height: 44px;
     border: none;
-    border-radius: 24px;
-    background: transparent;
+    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     color: var(--text-secondary);
-    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.mode-btn.active {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+.logout-btn:hover {
+    background: rgba(244, 63, 94, 0.1);
+    border-color: var(--fail);
+    color: var(--fail);
+}
+
+.logout-btn [data-lucide] {
+    width: 20px;
+    height: 20px;
+}
+
+/* 현재 사용자 표시 */
+.current-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.user-badge,
+.user-role {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.user-badge {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-badge [data-lucide] {
+    width: 16px;
+    height: 16px;
+    color: var(--secondary);
+}
+
+.user-role {
+    padding: 6px 14px;
+    background: var(--primary);
+    border-radius: 20px;
     color: white;
-    box-shadow: 0 2px 8px var(--shadow);
+    font-weight: 500;
+    font-size: 0.8rem;
 }
 
-.mode-btn:hover:not(.active) {
-    background: var(--primary-light);
+.user-role [data-lucide] {
+    width: 14px;
+    height: 14px;
+}
+
+/* 연결 상태 표시 */
+.connection-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--warning);
+    animation: pulse 2s infinite;
+}
+
+.connection-status.online .status-dot {
+    background: var(--success);
+    animation: none;
+}
+
+.connection-status.offline .status-dot {
+    background: var(--warning);
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
 }
 
 /* ============================================
    금연 시작일 배너
    ============================================ */
 .start-date-banner {
-    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.1));
+    border: 1px solid rgba(16, 185, 129, 0.3);
     border-radius: var(--border-radius);
-    padding: 16px 20px;
-    margin-bottom: 16px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.15);
+    backdrop-filter: blur(10px);
 }
 
 .start-date-info {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 }
 
 .start-date-icon {
-    font-size: 2rem;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--success), var(--success-light));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-date-icon [data-lucide] {
+    width: 24px;
+    height: 24px;
+    color: white;
 }
 
 .start-date-text {
@@ -332,152 +483,65 @@ body {
 
 .start-date-label {
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .start-date-value {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #2E7D32;
+    color: var(--success-light);
 }
 
 .days-since {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
-    padding: 10px 16px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: var(--glass-bg);
+    padding: 12px 20px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--glass-border);
 }
 
 .days-count {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #FF6B6B;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--secondary);
     line-height: 1;
 }
 
 .days-label {
     font-size: 0.7rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .edit-start-date-btn {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border: none;
-    border-radius: 50%;
-    background: white;
-    font-size: 1rem;
+    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .edit-start-date-btn:hover {
-    transform: scale(1.1);
-    background: #FFF9C4;
-}
-
-/* ============================================
-   시작일 설정 모달
-   ============================================ */
-.start-date-modal {
-    max-width: 380px;
-}
-
-.start-date-form {
-    text-align: center;
-}
-
-.form-description {
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-.date-input-group,
-.motivation-input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.date-input-group label,
-.motivation-input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.date-input-group input[type="date"] {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #EEE;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
-}
-
-.date-input-group input[type="date"]:focus {
-    outline: none;
-    border-color: var(--success-dark);
-}
-
-.motivation-input-group textarea {
-    width: 100%;
-    height: 80px;
-    padding: 12px;
-    border: 2px solid #EEE;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    resize: none;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
-}
-
-.motivation-input-group textarea:focus {
-    outline: none;
-    border-color: var(--success-dark);
-}
-
-.save-start-date-btn {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+    background: var(--primary);
+    border-color: var(--primary);
     color: white;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 12px;
 }
 
-.save-start-date-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(86, 197, 150, 0.4);
-}
-
-.clear-start-date-btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    background: #F5F5F5;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.clear-start-date-btn:hover {
-    background: var(--fail);
-    color: white;
+.edit-start-date-btn [data-lucide] {
+    width: 16px;
+    height: 16px;
 }
 
 /* ============================================
@@ -492,36 +556,61 @@ body {
 
 .stat-card {
     background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
-    padding: 16px 12px;
+    padding: 20px 16px;
     text-align: center;
-    box-shadow: 0 4px 15px var(--shadow);
-    transition: transform 0.3s ease;
+    transition: var(--transition);
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-sm);
 }
 
 .stat-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card.streak .stat-icon {
+    background: linear-gradient(135deg, #F97316, #FB923C);
+}
+
+.stat-card.best .stat-icon {
+    background: linear-gradient(135deg, #FBBF24, #FCD34D);
+}
+
+.stat-card.total .stat-icon {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+}
+
+.stat-icon [data-lucide] {
+    width: 22px;
+    height: 22px;
+    color: white;
 }
 
 .stat-value {
     display: block;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
 }
-
-.stat-card.streak .stat-value { color: #FF6B6B; }
-.stat-card.best .stat-value { color: #FFD93D; }
-.stat-card.total .stat-value { color: var(--success-dark); }
 
 .stat-label {
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* ============================================
@@ -529,65 +618,77 @@ body {
    ============================================ */
 .monthly-progress {
     background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
-    padding: 16px 20px;
+    padding: 20px 24px;
     margin-bottom: 16px;
-    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .progress-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 14px;
     font-size: 0.9rem;
 }
 
+.progress-header span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+
+.progress-header span:first-child [data-lucide] {
+    width: 16px;
+    height: 16px;
+}
+
 .progress-header span:last-child {
-    font-weight: bold;
-    color: var(--success-dark);
+    font-weight: 700;
+    color: var(--success-light);
 }
 
 .progress-bar {
-    height: 12px;
-    background: #EEE;
-    border-radius: 6px;
+    height: 10px;
+    background: var(--glass-bg);
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--success) 0%, var(--success-dark) 100%);
-    border-radius: 6px;
+    background: linear-gradient(90deg, var(--success), var(--success-light));
+    border-radius: 5px;
     width: 0%;
-    transition: width 0.5s ease;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ============================================
    응원 메시지 배너
    ============================================ */
 .cheer-banner {
-    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(244, 114, 182, 0.1));
+    border: 1px solid rgba(236, 72, 153, 0.3);
     border-radius: var(--border-radius);
-    padding: 16px 20px;
-    margin-bottom: 20px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    animation: gentle-pulse 3s ease-in-out infinite;
+    gap: 16px;
 }
 
-@keyframes gentle-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.01); }
-}
-
-.cheer-icon {
-    font-size: 1.5rem;
+.cheer-banner [data-lucide] {
+    width: 24px;
+    height: 24px;
+    color: var(--secondary);
+    flex-shrink: 0;
 }
 
 .cheer-banner p {
     font-size: 0.95rem;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -603,25 +704,34 @@ body {
 
 .calendar-nav h2 {
     font-size: 1.2rem;
+    font-weight: 600;
     color: var(--text-primary);
 }
 
 .nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border: none;
-    border-radius: 50%;
+    border-radius: var(--border-radius-sm);
     background: var(--card-bg);
-    color: var(--primary);
-    font-size: 1rem;
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
     cursor: pointer;
-    box-shadow: 0 2px 8px var(--shadow);
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-btn:hover {
     background: var(--primary);
+    border-color: var(--primary);
     color: white;
+}
+
+.nav-btn [data-lucide] {
+    width: 20px;
+    height: 20px;
 }
 
 /* ============================================
@@ -629,10 +739,11 @@ body {
    ============================================ */
 .calendar-container {
     background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
     border-radius: var(--border-radius);
-    padding: 16px;
-    box-shadow: 0 4px 15px var(--shadow);
-    margin-bottom: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 .calendar-weekdays {
@@ -643,13 +754,15 @@ body {
 }
 
 .calendar-weekdays span {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    font-weight: 500;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.calendar-weekdays span:first-child { color: #FF6B6B; }
-.calendar-weekdays span:last-child { color: #5B9BD5; }
+.calendar-weekdays span:first-child { color: var(--fail-light); }
+.calendar-weekdays span:last-child { color: var(--primary-light); }
 
 .calendar-grid {
     display: grid;
@@ -664,41 +777,42 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition);
     position: relative;
     font-size: 0.9rem;
-    background: #FAFAFA;
+    font-weight: 500;
+    background: var(--glass-bg);
+    border: 1px solid transparent;
+    color: var(--text-primary);
 }
 
 .day-cell:hover {
-    transform: scale(1.05);
-    box-shadow: 0 2px 8px var(--shadow);
+    transform: scale(1.08);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
 }
 
 .day-cell.today {
     border: 2px solid var(--primary);
-    font-weight: bold;
+    background: rgba(99, 102, 241, 0.1);
 }
 
 .day-cell.other-month {
-    color: #CCC;
+    color: var(--text-muted);
     background: transparent;
+    opacity: 0.3;
 }
 
 .day-cell.success {
-    background: linear-gradient(135deg, var(--success) 0%, #B8F0D8 100%);
-    color: var(--text-primary);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.2));
+    border-color: rgba(16, 185, 129, 0.5);
 }
 
 .day-cell.fail {
-    background: linear-gradient(135deg, var(--fail) 0%, #FFCBC7 100%);
-    color: var(--text-primary);
-}
-
-.day-cell.has-record {
-    font-weight: 500;
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.3), rgba(251, 113, 133, 0.2));
+    border-color: rgba(244, 63, 94, 0.5);
 }
 
 /* 날짜 셀 내 도장 표시 */
@@ -706,7 +820,7 @@ body {
     position: absolute;
     bottom: 2px;
     right: 2px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     animation: stamp-wobble 0.5s ease;
 }
 
@@ -722,16 +836,16 @@ body {
 .legend {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 24px;
     flex-wrap: wrap;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
 }
 
 .legend-dot {
@@ -742,7 +856,10 @@ body {
 
 .legend-dot.success { background: var(--success); }
 .legend-dot.fail { background: var(--fail); }
-.legend-dot.empty { background: #EEE; border: 1px dashed #CCC; }
+.legend-dot.empty { 
+    background: var(--glass-bg); 
+    border: 1px solid var(--glass-border); 
+}
 
 /* ============================================
    모달 스타일
@@ -753,14 +870,15 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     padding: 20px;
 }
 
@@ -771,69 +889,95 @@ body {
 
 .modal {
     background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 24px;
+    padding: 32px;
     position: relative;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transform: scale(0.9) translateY(20px);
+    transition: var(--transition);
 }
 
 .modal-overlay.active .modal {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
 }
 
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 32px;
-    height: 32px;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
     border: none;
-    border-radius: 50%;
-    background: #F5F5F5;
+    border-radius: 10px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     color: var(--text-secondary);
-    font-size: 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-close:hover {
     background: var(--fail);
+    border-color: var(--fail);
     color: white;
+}
+
+.modal-close [data-lucide] {
+    width: 18px;
+    height: 18px;
 }
 
 .modal-header {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .modal-header h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--text-primary);
 }
 
-/* 모달 컨텐츠 공통 */
-.modal-content {
-    transition: opacity 0.3s ease;
+.modal-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--success), var(--success-light));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.modal-icon [data-lucide] {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+/* 모달 컨텐츠 공통 */
 .modal-content.hidden {
     display: none;
 }
 
 /* 금연 체크 버튼 */
 .smoking-check {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .smoking-check p {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     font-weight: 500;
+    color: var(--text-secondary);
 }
 
 .check-buttons {
@@ -843,66 +987,94 @@ body {
 }
 
 .check-btn {
-    padding: 16px;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    font-size: 1rem;
+    padding: 20px 16px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.success-btn {
-    background: var(--success);
-    color: var(--text-primary);
+.check-btn [data-lucide] {
+    width: 28px;
+    height: 28px;
 }
 
 .success-btn:hover, .success-btn.active {
-    background: var(--success-dark);
+    background: linear-gradient(135deg, var(--success), var(--success-light));
+    border-color: var(--success);
     color: white;
-    transform: scale(1.02);
-}
-
-.fail-btn {
-    background: #F5F5F5;
-    color: var(--text-secondary);
 }
 
 .fail-btn:hover, .fail-btn.active {
-    background: var(--fail);
+    background: linear-gradient(135deg, var(--fail), var(--fail-light));
+    border-color: var(--fail);
     color: white;
-    transform: scale(1.02);
 }
 
 /* 메모 섹션 */
-.memo-section {
-    margin-bottom: 20px;
+.memo-section,
+.cheer-input-section {
+    margin-bottom: 24px;
 }
 
 .memo-section label,
-.cheer-input-section label {
-    display: block;
-    margin-bottom: 8px;
+.cheer-input-section label,
+.date-input-group label,
+.motivation-input-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
     font-size: 0.9rem;
+    font-weight: 500;
     color: var(--text-secondary);
 }
 
+.memo-section label [data-lucide],
+.cheer-input-section label [data-lucide],
+.date-input-group label [data-lucide],
+.motivation-input-group label [data-lucide] {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
 .memo-section textarea,
-.cheer-input-section textarea {
+.cheer-input-section textarea,
+.motivation-input-group textarea {
     width: 100%;
-    height: 80px;
-    padding: 12px;
-    border: 2px solid #EEE;
-    border-radius: 12px;
+    height: 100px;
+    padding: 16px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
     font-size: 0.95rem;
     resize: none;
     font-family: inherit;
-    transition: border-color 0.3s ease;
+    transition: var(--transition);
+    background: var(--glass-bg);
+    color: var(--text-primary);
 }
 
 .memo-section textarea:focus,
-.cheer-input-section textarea:focus {
+.cheer-input-section textarea:focus,
+.motivation-input-group textarea:focus {
     outline: none;
     border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.memo-section textarea::placeholder,
+.cheer-input-section textarea::placeholder,
+.motivation-input-group textarea::placeholder {
+    color: var(--text-muted);
 }
 
 /* 저장 버튼 */
@@ -910,128 +1082,235 @@ body {
     width: 100%;
     padding: 16px;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: var(--border-radius-sm);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .save-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px var(--shadow);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+}
+
+.save-btn [data-lucide] {
+    width: 18px;
+    height: 18px;
 }
 
 /* 파트너 모드 - 기록 표시 */
 .record-display {
-    background: #FAFAFA;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 24px;
     text-align: center;
 }
 
 .record-status {
     font-size: 1.1rem;
+    font-weight: 500;
     margin-bottom: 8px;
+    color: var(--text-primary);
 }
 
 .record-memo {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-style: italic;
 }
 
 /* 도장 버튼 섹션 */
 .stamp-section {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .stamp-section p {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     font-weight: 500;
+    color: var(--text-secondary);
 }
 
 .stamp-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 10px;
 }
 
 .stamp-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 12px 8px;
-    border: 2px solid #EEE;
-    border-radius: 12px;
-    background: white;
+    gap: 6px;
+    padding: 14px 8px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .stamp-btn:hover {
     border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
     transform: scale(1.05);
 }
 
 .stamp-btn.active {
     border-color: var(--primary);
-    background: var(--primary-light);
-}
-
-.stamp-btn.negative:hover {
-    border-color: var(--fail-dark);
+    background: rgba(99, 102, 241, 0.2);
 }
 
 .stamp-emoji {
     font-size: 1.5rem;
-    margin-bottom: 4px;
 }
 
 .stamp-label {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
+    font-size: 0.65rem;
+    color: var(--text-muted);
 }
 
 /* 응원 메시지 입력 */
-.cheer-input-section {
-    margin-bottom: 16px;
-}
-
 .cheer-save-btn {
     width: 100%;
     padding: 14px;
-    margin-top: 10px;
+    margin-top: 12px;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--secondary) 0%, #7EC8E3 100%);
+    border-radius: var(--border-radius-sm);
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
     color: white;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .cheer-save-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(168, 237, 234, 0.4);
+    box-shadow: 0 10px 40px rgba(236, 72, 153, 0.4);
+}
+
+.cheer-save-btn [data-lucide] {
+    width: 18px;
+    height: 18px;
 }
 
 /* 현재 도장 표시 */
 .current-stamp {
     text-align: center;
-    margin-top: 16px;
-    min-height: 40px;
+    margin-top: 20px;
+    min-height: 48px;
 }
 
 .current-stamp .stamp-display {
     display: inline-block;
-    font-size: 2rem;
+    font-size: 2.5rem;
     animation: stamp-wobble 0.5s ease;
+}
+
+/* 시작일 설정 모달 */
+.start-date-form {
+    text-align: center;
+}
+
+.form-description {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+}
+
+.date-input-group,
+.motivation-input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.date-input-group input[type="date"] {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: var(--transition);
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    color-scheme: dark;
+}
+
+.date-input-group input[type="date"]:focus {
+    outline: none;
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.save-start-date-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    background: linear-gradient(135deg, var(--success), var(--success-light));
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.save-start-date-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+}
+
+.save-start-date-btn [data-lucide] {
+    width: 18px;
+    height: 18px;
+}
+
+.clear-start-date-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.clear-start-date-btn:hover {
+    background: rgba(244, 63, 94, 0.1);
+    border-color: var(--fail);
+    color: var(--fail);
+}
+
+.clear-start-date-btn [data-lucide] {
+    width: 16px;
+    height: 16px;
 }
 
 /* ============================================
@@ -1057,8 +1336,9 @@ body {
 }
 
 .big-stamp {
-    font-size: 8rem;
-    animation: big-stamp-pop 0.6s ease forwards;
+    font-size: 10rem;
+    animation: big-stamp-pop 0.7s ease forwards;
+    filter: drop-shadow(0 0 60px rgba(255, 255, 255, 0.5));
 }
 
 @keyframes big-stamp-pop {
@@ -1087,29 +1367,36 @@ body {
         padding: 16px;
     }
     
+    .login-card {
+        padding: 32px 24px;
+    }
+    
     .stats-dashboard {
         gap: 8px;
     }
     
     .stat-card {
-        padding: 12px 8px;
-    }
-    
-    .stat-icon {
-        font-size: 1.5rem;
+        padding: 16px 10px;
     }
     
     .stat-value {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     
     .stamp-buttons {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .mode-btn {
-        padding: 8px 12px;
-        font-size: 0.8rem;
+    .start-date-info {
+        gap: 10px;
+    }
+    
+    .days-since {
+        padding: 10px 14px;
+    }
+    
+    .days-count {
+        font-size: 1.4rem;
     }
 }
 
@@ -1120,24 +1407,26 @@ body {
     display: none !important;
 }
 
-.text-center {
-    text-align: center;
-}
-
 /* 스크롤바 스타일 */
 ::-webkit-scrollbar {
     width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #F5F5F5;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-light);
+    background: var(--glass-border);
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
+}
+
+/* Selection 스타일 */
+::selection {
+    background: var(--primary);
+    color: white;
 }

@@ -44,13 +44,13 @@ const Auth = {
   USERS: {
     girlfriend: {
       name: '서연',
-      emoji: '💕',
+      icon: 'heart',
       password: 'tjdus1234',  // ← 여기서 비밀번호 변경!
       role: 'recorder'       // 기록만 가능
     },
     myungwoo: {
       name: '명우',
-      emoji: '💪',
+      icon: 'user',
       password: 'auddn1234', // ← 여기서 비밀번호 변경!
       role: 'supporter'      // 응원만 가능
     }
@@ -73,12 +73,12 @@ const Auth = {
   login(username, password) {
     const user = this.USERS[username];
     if (!user) return { success: false, error: '사용자를 선택해주세요' };
-    if (user.password !== password) return { success: false, error: '비밀번호가 틀렸어요 😢' };
+    if (user.password !== password) return { success: false, error: '비밀번호가 틀렸어요' };
 
     this.currentUser = {
       id: username,
       name: user.name,
-      emoji: user.emoji,
+      icon: user.icon,
       role: user.role
     };
 
@@ -619,6 +619,11 @@ const Modal = {
 
     // 모달 표시
     document.getElementById('modalOverlay').classList.add('active');
+
+    // Lucide 아이콘 새로고침
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   },
 
   // 역할에 따른 UI 표시
@@ -731,7 +736,7 @@ const Modal = {
 
     if (record) {
       if (record.success === true) {
-        statusEl.innerHTML = '✅ <strong>금연 성공!</strong>';
+        statusEl.innerHTML = '<strong>✅ 금연 성공!</strong>';
       } else if (record.success === false) {
         statusEl.innerHTML = '😢 아쉽지만 다음엔 꼭!';
       } else {
@@ -810,6 +815,11 @@ const StartDateModal = {
     }
 
     document.getElementById('startDateModalOverlay').classList.add('active');
+
+    // Lucide 아이콘 새로고침
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   },
 
   // 모달 닫기
@@ -867,6 +877,11 @@ const App = {
 
     // Firebase 연결 상태 표시
     this.showConnectionStatus();
+
+    // Lucide 아이콘 초기화
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   },
 
   // 연결 상태 표시
@@ -879,7 +894,7 @@ const App = {
       textEl.textContent = '실시간 동기화 중';
     } else {
       statusEl.className = 'connection-status offline';
-      textEl.textContent = '오프라인 모드 (Firebase 설정 필요)';
+      textEl.textContent = '오프라인 모드';
     }
   },
 
@@ -908,8 +923,11 @@ const App = {
       this.showApp();
     } else {
       const errorEl = document.getElementById('loginError');
-      errorEl.textContent = result.error;
+      errorEl.querySelector('i + i, span') || (errorEl.innerHTML = `<i data-lucide="alert-circle"></i> ${result.error}`);
       errorEl.classList.remove('hidden');
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     }
   },
 
@@ -928,6 +946,10 @@ const App = {
   showLogin() {
     document.getElementById('loginContainer').classList.remove('hidden');
     document.getElementById('appContainer').classList.add('hidden');
+
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   },
 
   // 앱 화면 표시
@@ -945,6 +967,11 @@ const App = {
     this.updateStartDateDisplay();
     this.updateStats();
     this.updateCheerBanner();
+
+    // Lucide 아이콘 새로고침
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   },
 
   // 사용자 정보 표시 업데이트
@@ -952,12 +979,19 @@ const App = {
     const user = Auth.getUser();
     if (!user) return;
 
-    document.getElementById('userBadge').textContent = `${user.emoji} ${user.name}`;
+    const badgeEl = document.getElementById('userBadge');
+    const roleEl = document.getElementById('userRole');
 
     if (Auth.isRecorder()) {
-      document.getElementById('userRole').textContent = '📝 기록 모드';
+      badgeEl.innerHTML = `<i data-lucide="heart"></i><span>${user.name}</span>`;
+      roleEl.innerHTML = `<i data-lucide="edit-3"></i><span>기록 모드</span>`;
     } else {
-      document.getElementById('userRole').textContent = '💌 응원 모드';
+      badgeEl.innerHTML = `<i data-lucide="shield"></i><span>${user.name}</span>`;
+      roleEl.innerHTML = `<i data-lucide="heart-handshake"></i><span>응원 모드</span>`;
+    }
+
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
     }
   },
 
@@ -1011,11 +1045,11 @@ const App = {
   // 응원 배너 업데이트
   updateCheerBanner() {
     const defaultMessages = [
-      '오늘도 힘내요! 당신은 할 수 있어요 💪',
-      '하루하루가 승리예요 ✨',
-      '포기하지 않는 당신이 자랑스러워요 💕',
-      '건강한 내일을 위해 오늘도 화이팅! 🌟',
-      '함께라서 더 강해질 수 있어요 💑'
+      '오늘도 힘내요! 당신은 할 수 있어요',
+      '하루하루가 승리예요',
+      '포기하지 않는 당신이 자랑스러워요',
+      '건강한 내일을 위해 오늘도 화이팅!',
+      '함께라서 더 강해질 수 있어요'
     ];
 
     let message = DataStore.getRandomCheer();
