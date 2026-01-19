@@ -1,6 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
 /* ============================================
    금연 캘린더 - 메인 JavaScript
    Firebase 실시간 동기화 버전
@@ -20,8 +17,6 @@ const firebaseConfig = {
 };
 
 // Firebase 초기화
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 let db = null;
 let isFirebaseReady = false;
 
