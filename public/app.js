@@ -432,12 +432,16 @@ const Calendar = {
   // 네비게이션 바인딩
   bindNavigation() {
     document.getElementById('prevMonth').addEventListener('click', () => {
+      // [수정] 달을 이동하기 전에 날짜를 1일로 설정하여 오버플로우 방지
+      this.currentDate.setDate(1);
       this.currentDate.setMonth(this.currentDate.getMonth() - 1);
       this.renderCalendar();
       App.updateStats();
     });
 
     document.getElementById('nextMonth').addEventListener('click', () => {
+      // [수정] 달을 이동하기 전에 날짜를 1일로 설정하여 오버플로우 방지
+      this.currentDate.setDate(1);
       this.currentDate.setMonth(this.currentDate.getMonth() + 1);
       this.renderCalendar();
       App.updateStats();
