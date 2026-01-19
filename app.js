@@ -632,7 +632,7 @@ const Modal = {
     const partnerContent = document.getElementById('partnerModeContent');
 
     if (Auth.isRecorder()) {
-      // 여자친구: 기록 UI만 표시
+      // 서연: 기록 UI만 표시
       userContent.classList.remove('hidden');
       partnerContent.classList.add('hidden');
     } else {
@@ -656,7 +656,7 @@ const Modal = {
     document.querySelectorAll('.stamp-btn').forEach(b => b.classList.remove('active'));
   },
 
-  // 기록 저장 (여자친구 전용)
+  // 기록 저장 (서연 전용)
   saveRecord() {
     if (!this.currentDate || !Auth.isRecorder()) return;
 
