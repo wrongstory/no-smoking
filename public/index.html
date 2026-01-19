@@ -1,379 +1,382 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>금연 캘린더 - 함께하는 금연</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>금연 캘린더 - 함께하는 금연</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
-    <!-- 배경 장식 -->
-    <div class="bg-decoration">
-        <div class="bg-circle bg-circle-1"></div>
-        <div class="bg-circle bg-circle-2"></div>
-        <div class="bg-circle bg-circle-3"></div>
-    </div>
+  <!-- 배경 장식 -->
+  <div class="bg-decoration">
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-circle bg-circle-3"></div>
+  </div>
 
-    <!-- 로그인 화면 -->
-    <div class="login-container" id="loginContainer">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-icon">
-                    <i data-lucide="cigarette-off"></i>
-                </div>
-                <h1>금연 캘린더</h1>
-                <p>함께라서 할 수 있어요</p>
-            </div>
-            
-            <div class="login-form">
-                <div class="input-group">
-                    <label for="usernameInput">
-                        <i data-lucide="user"></i>
-                        누구세요?
-                    </label>
-                    <select id="usernameInput">
-                        <option value="">선택해주세요</option>
-                        <option value="girlfriend">여자친구</option>
-                        <option value="myungwoo">명우</option>
-                    </select>
-                </div>
-                
-                <div class="input-group">
-                    <label for="passwordInput">
-                        <i data-lucide="lock"></i>
-                        비밀번호
-                    </label>
-                    <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
-                </div>
-                
-                <button class="login-btn" id="loginBtn">
-                    <i data-lucide="log-in"></i>
-                    로그인
-                </button>
-                
-                <p class="login-error hidden" id="loginError">
-                    <i data-lucide="alert-circle"></i>
-                    비밀번호가 틀렸어요
-                </p>
-            </div>
-            
-            <div class="login-hint">
-                <i data-lucide="shield-check"></i>
-                둘만의 비밀 공간이에요
-            </div>
+  <!-- 로그인 화면 -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">
+          <i data-lucide="cigarette-off"></i>
         </div>
+        <h1>금연 캘린더</h1>
+        <p>함께라서 할 수 있어요</p>
+      </div>
+
+      <div class="login-form">
+        <div class="input-group">
+          <label for="usernameInput">
+            <i data-lucide="user"></i>
+            누구세요?
+          </label>
+          <select id="usernameInput">
+            <option value="">선택해주세요</option>
+            <option value="girlfriend">서연</option>
+            <option value="myungwoo">명우</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="passwordInput">
+            <i data-lucide="lock"></i>
+            비밀번호
+          </label>
+          <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
+        </div>
+
+        <button class="login-btn" id="loginBtn">
+          <i data-lucide="log-in"></i>
+          로그인
+        </button>
+
+        <p class="login-error hidden" id="loginError">
+          <i data-lucide="alert-circle"></i>
+          비밀번호가 틀렸어요
+        </p>
+      </div>
+
+      <div class="login-hint">
+        <i data-lucide="shield-check"></i>
+        둘만의 비밀 공간이에요
+      </div>
     </div>
+  </div>
 
-    <div class="app-container hidden" id="appContainer">
-        <!-- 헤더 영역 -->
-        <header class="app-header">
-            <div class="header-top">
-                <div class="logo">
-                    <i data-lucide="cigarette-off"></i>
-                    <h1>금연 캘린더</h1>
-                </div>
-                <button class="logout-btn" id="logoutBtn">
-                    <i data-lucide="log-out"></i>
-                </button>
-            </div>
-            
-            <!-- 현재 사용자 표시 -->
-            <div class="current-user" id="currentUserDisplay">
-                <span class="user-badge" id="userBadge">
-                    <i data-lucide="heart"></i>
-                    <span>여자친구</span>
-                </span>
-                <span class="user-role" id="userRole">
-                    <i data-lucide="edit-3"></i>
-                    <span>기록 모드</span>
-                </span>
-            </div>
-            
-            <!-- 연결 상태 표시 -->
-            <div class="connection-status" id="connectionStatus">
-                <span class="status-dot"></span>
-                <span class="status-text">연결 확인 중...</span>
-            </div>
-        </header>
+  <div class="app-container hidden" id="appContainer">
+    <!-- 헤더 영역 -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="logo">
+          <i data-lucide="cigarette-off"></i>
+          <h1>금연 캘린더</h1>
+        </div>
+        <button class="logout-btn" id="logoutBtn">
+          <i data-lucide="log-out"></i>
+        </button>
+      </div>
 
-        <!-- 금연 시작일 배너 -->
-        <section class="start-date-banner" id="startDateBanner">
-            <div class="start-date-info">
-                <div class="start-date-icon">
-                    <i data-lucide="sprout"></i>
-                </div>
-                <div class="start-date-text">
-                    <span class="start-date-label">금연 시작일</span>
-                    <span class="start-date-value" id="startDateValue">설정해주세요</span>
-                </div>
-                <div class="days-since">
-                    <span class="days-count" id="daysSinceStart">0</span>
-                    <span class="days-label">일차</span>
-                </div>
-            </div>
-            <button class="edit-start-date-btn" id="editStartDateBtn">
-                <i data-lucide="pencil"></i>
+      <!-- 현재 사용자 표시 -->
+      <div class="current-user" id="currentUserDisplay">
+        <span class="user-badge" id="userBadge">
+          <i data-lucide="heart"></i>
+          <span>서연</span>
+        </span>
+        <span class="user-role" id="userRole">
+          <i data-lucide="edit-3"></i>
+          <span>기록 모드</span>
+        </span>
+      </div>
+
+      <!-- 연결 상태 표시 -->
+      <div class="connection-status" id="connectionStatus">
+        <span class="status-dot"></span>
+        <span class="status-text">연결 확인 중...</span>
+      </div>
+    </header>
+
+    <!-- 금연 시작일 배너 -->
+    <section class="start-date-banner" id="startDateBanner">
+      <div class="start-date-info">
+        <div class="start-date-icon">
+          <i data-lucide="sprout"></i>
+        </div>
+        <div class="start-date-text">
+          <span class="start-date-label">금연 시작일</span>
+          <span class="start-date-value" id="startDateValue">설정해주세요</span>
+        </div>
+        <div class="days-since">
+          <span class="days-count" id="daysSinceStart">0</span>
+          <span class="days-label">일차</span>
+        </div>
+      </div>
+      <button class="edit-start-date-btn" id="editStartDateBtn">
+        <i data-lucide="pencil"></i>
+      </button>
+    </section>
+
+    <!-- 통계 대시보드 -->
+    <section class="stats-dashboard">
+      <div class="stat-card streak">
+        <div class="stat-icon">
+          <i data-lucide="flame"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="currentStreak">0</span>
+          <span class="stat-label">연속 금연</span>
+        </div>
+      </div>
+      <div class="stat-card best">
+        <div class="stat-icon">
+          <i data-lucide="trophy"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="bestStreak">0</span>
+          <span class="stat-label">최장 기록</span>
+        </div>
+      </div>
+      <div class="stat-card total">
+        <div class="stat-icon">
+          <i data-lucide="star"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="totalDays">0</span>
+          <span class="stat-label">총 금연일</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 월별 성공률 -->
+    <section class="monthly-progress">
+      <div class="progress-header">
+        <span>
+          <i data-lucide="bar-chart-2"></i>
+          이번 달 성공률
+        </span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </section>
+
+    <!-- 응원 메시지 배너 -->
+    <section class="cheer-banner" id="cheerBanner">
+      <i data-lucide="heart-handshake"></i>
+      <p id="cheerMessage">오늘도 힘내요!</p>
+    </section>
+
+    <!-- 캘린더 네비게이션 -->
+    <nav class="calendar-nav">
+      <button id="prevMonth" class="nav-btn">
+        <i data-lucide="chevron-left"></i>
+      </button>
+      <h2 id="currentMonth">2025년 1월</h2>
+      <button id="nextMonth" class="nav-btn">
+        <i data-lucide="chevron-right"></i>
+      </button>
+    </nav>
+
+    <!-- 캘린더 그리드 -->
+    <section class="calendar-container">
+      <div class="calendar-weekdays">
+        <span>일</span>
+        <span>월</span>
+        <span>화</span>
+        <span>수</span>
+        <span>목</span>
+        <span>금</span>
+        <span>토</span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- JavaScript로 동적 생성 -->
+      </div>
+    </section>
+
+    <!-- 범례 -->
+    <section class="legend">
+      <div class="legend-item">
+        <span class="legend-dot success"></span>
+        <span>금연 성공</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot fail"></span>
+        <span>아쉬워요</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot empty"></span>
+        <span>미기록</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- 날짜 클릭 시 팝업 모달 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="dayModal">
+      <button class="modal-close" id="modalClose">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-header">
+        <h3 id="modalDate">2025년 1월 1일</h3>
+      </div>
+
+      <!-- 사용자 모드: 기록하기 -->
+      <div class="modal-content user-mode" id="userModeContent">
+        <div class="smoking-check">
+          <p>오늘 금연했나요?</p>
+          <div class="check-buttons">
+            <button class="check-btn success-btn" data-value="true">
+              <i data-lucide="check-circle"></i>
+              <span>네, 성공!</span>
             </button>
-        </section>
+            <button class="check-btn fail-btn" data-value="false">
+              <i data-lucide="frown"></i>
+              <span>아니요...</span>
+            </button>
+          </div>
+        </div>
 
-        <!-- 통계 대시보드 -->
-        <section class="stats-dashboard">
-            <div class="stat-card streak">
-                <div class="stat-icon">
-                    <i data-lucide="flame"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-value" id="currentStreak">0</span>
-                    <span class="stat-label">연속 금연</span>
-                </div>
-            </div>
-            <div class="stat-card best">
-                <div class="stat-icon">
-                    <i data-lucide="trophy"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-value" id="bestStreak">0</span>
-                    <span class="stat-label">최장 기록</span>
-                </div>
-            </div>
-            <div class="stat-card total">
-                <div class="stat-icon">
-                    <i data-lucide="star"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-value" id="totalDays">0</span>
-                    <span class="stat-label">총 금연일</span>
-                </div>
-            </div>
-        </section>
+        <div class="memo-section">
+          <label for="memoInput">
+            <i data-lucide="message-square"></i>
+            오늘 한마디
+          </label>
+          <textarea id="memoInput" placeholder="오늘의 기분이나 다짐을 적어보세요..."></textarea>
+        </div>
 
-        <!-- 월별 성공률 -->
-        <section class="monthly-progress">
-            <div class="progress-header">
-                <span>
-                    <i data-lucide="bar-chart-2"></i>
-                    이번 달 성공률
-                </span>
-                <span id="progressPercent">0%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </section>
+        <button class="save-btn" id="saveRecord">
+          <i data-lucide="save"></i>
+          저장하기
+        </button>
+      </div>
 
-        <!-- 응원 메시지 배너 -->
-        <section class="cheer-banner" id="cheerBanner">
+      <!-- 파트너 모드: 응원하기 -->
+      <div class="modal-content partner-mode hidden" id="partnerModeContent">
+        <div class="record-display" id="recordDisplay">
+          <div class="record-status" id="recordStatus">
+            <!-- 기록된 상태 표시 -->
+          </div>
+          <div class="record-memo" id="recordMemo">
+            <!-- 메모 표시 -->
+          </div>
+        </div>
+
+        <div class="stamp-section">
+          <p>도장을 찍어주세요!</p>
+          <div class="stamp-buttons">
+            <button class="stamp-btn" data-stamp="👍">
+              <span class="stamp-emoji">👍</span>
+              <span class="stamp-label">잘했어요</span>
+            </button>
+            <button class="stamp-btn" data-stamp="💖">
+              <span class="stamp-emoji">💖</span>
+              <span class="stamp-label">최고야</span>
+            </button>
+            <button class="stamp-btn" data-stamp="💪">
+              <span class="stamp-emoji">💪</span>
+              <span class="stamp-label">힘내요</span>
+            </button>
+            <button class="stamp-btn negative" data-stamp="😢">
+              <span class="stamp-emoji">😢</span>
+              <span class="stamp-label">아쉬워요</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="cheer-input-section">
+          <label for="cheerInput">
             <i data-lucide="heart-handshake"></i>
-            <p id="cheerMessage">오늘도 힘내요!</p>
-        </section>
-
-        <!-- 캘린더 네비게이션 -->
-        <nav class="calendar-nav">
-            <button id="prevMonth" class="nav-btn">
-                <i data-lucide="chevron-left"></i>
-            </button>
-            <h2 id="currentMonth">2025년 1월</h2>
-            <button id="nextMonth" class="nav-btn">
-                <i data-lucide="chevron-right"></i>
-            </button>
-        </nav>
-
-        <!-- 캘린더 그리드 -->
-        <section class="calendar-container">
-            <div class="calendar-weekdays">
-                <span>일</span>
-                <span>월</span>
-                <span>화</span>
-                <span>수</span>
-                <span>목</span>
-                <span>금</span>
-                <span>토</span>
-            </div>
-            <div class="calendar-grid" id="calendarGrid">
-                <!-- JavaScript로 동적 생성 -->
-            </div>
-        </section>
-
-        <!-- 범례 -->
-        <section class="legend">
-            <div class="legend-item">
-                <span class="legend-dot success"></span>
-                <span>금연 성공</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-dot fail"></span>
-                <span>아쉬워요</span>
-            </div>
-            <div class="legend-item">
-                <span class="legend-dot empty"></span>
-                <span>미기록</span>
-            </div>
-        </section>
-    </div>
-
-    <!-- 날짜 클릭 시 팝업 모달 -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="dayModal">
-            <button class="modal-close" id="modalClose">
-                <i data-lucide="x"></i>
-            </button>
-            
-            <div class="modal-header">
-                <h3 id="modalDate">2025년 1월 1일</h3>
-            </div>
-
-            <!-- 사용자 모드: 기록하기 -->
-            <div class="modal-content user-mode" id="userModeContent">
-                <div class="smoking-check">
-                    <p>오늘 금연했나요?</p>
-                    <div class="check-buttons">
-                        <button class="check-btn success-btn" data-value="true">
-                            <i data-lucide="check-circle"></i>
-                            <span>네, 성공!</span>
-                        </button>
-                        <button class="check-btn fail-btn" data-value="false">
-                            <i data-lucide="frown"></i>
-                            <span>아니요...</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="memo-section">
-                    <label for="memoInput">
-                        <i data-lucide="message-square"></i>
-                        오늘 한마디
-                    </label>
-                    <textarea id="memoInput" placeholder="오늘의 기분이나 다짐을 적어보세요..."></textarea>
-                </div>
-
-                <button class="save-btn" id="saveRecord">
-                    <i data-lucide="save"></i>
-                    저장하기
-                </button>
-            </div>
-
-            <!-- 파트너 모드: 응원하기 -->
-            <div class="modal-content partner-mode hidden" id="partnerModeContent">
-                <div class="record-display" id="recordDisplay">
-                    <div class="record-status" id="recordStatus">
-                        <!-- 기록된 상태 표시 -->
-                    </div>
-                    <div class="record-memo" id="recordMemo">
-                        <!-- 메모 표시 -->
-                    </div>
-                </div>
-
-                <div class="stamp-section">
-                    <p>도장을 찍어주세요!</p>
-                    <div class="stamp-buttons">
-                        <button class="stamp-btn" data-stamp="👍">
-                            <span class="stamp-emoji">👍</span>
-                            <span class="stamp-label">잘했어요</span>
-                        </button>
-                        <button class="stamp-btn" data-stamp="💖">
-                            <span class="stamp-emoji">💖</span>
-                            <span class="stamp-label">최고야</span>
-                        </button>
-                        <button class="stamp-btn" data-stamp="💪">
-                            <span class="stamp-emoji">💪</span>
-                            <span class="stamp-label">힘내요</span>
-                        </button>
-                        <button class="stamp-btn negative" data-stamp="😢">
-                            <span class="stamp-emoji">😢</span>
-                            <span class="stamp-label">아쉬워요</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="cheer-input-section">
-                    <label for="cheerInput">
-                        <i data-lucide="heart-handshake"></i>
-                        응원 메시지 남기기
-                    </label>
-                    <textarea id="cheerInput" placeholder="따뜻한 응원의 말을 적어주세요..."></textarea>
-                    <button class="cheer-save-btn" id="saveCheer">
-                        <i data-lucide="send"></i>
-                        응원 보내기
-                    </button>
-                </div>
-            </div>
-
-            <!-- 현재 도장 표시 -->
-            <div class="current-stamp" id="currentStamp">
-                <!-- 찍힌 도장 표시 -->
-            </div>
+            응원 메시지 남기기
+          </label>
+          <textarea id="cheerInput" placeholder="따뜻한 응원의 말을 적어주세요..."></textarea>
+          <button class="cheer-save-btn" id="saveCheer">
+            <i data-lucide="send"></i>
+            응원 보내기
+          </button>
         </div>
+      </div>
+
+      <!-- 현재 도장 표시 -->
+      <div class="current-stamp" id="currentStamp">
+        <!-- 찍힌 도장 표시 -->
+      </div>
     </div>
+  </div>
 
-    <!-- 시작일 설정 모달 -->
-    <div class="modal-overlay" id="startDateModalOverlay">
-        <div class="modal start-date-modal">
-            <button class="modal-close" id="startDateModalClose">
-                <i data-lucide="x"></i>
-            </button>
-            
-            <div class="modal-header">
-                <div class="modal-icon">
-                    <i data-lucide="sprout"></i>
-                </div>
-                <h3>금연 시작일 설정</h3>
-            </div>
+  <!-- 시작일 설정 모달 -->
+  <div class="modal-overlay" id="startDateModalOverlay">
+    <div class="modal start-date-modal">
+      <button class="modal-close" id="startDateModalClose">
+        <i data-lucide="x"></i>
+      </button>
 
-            <div class="start-date-form">
-                <p class="form-description">금연을 시작한 날짜를 선택해주세요!</p>
-                
-                <div class="date-input-group">
-                    <label for="startDateInput">
-                        <i data-lucide="calendar"></i>
-                        시작일
-                    </label>
-                    <input type="date" id="startDateInput">
-                </div>
-
-                <div class="motivation-input-group">
-                    <label for="motivationInput">
-                        <i data-lucide="lightbulb"></i>
-                        금연 다짐 한마디
-                    </label>
-                    <textarea id="motivationInput" placeholder="왜 금연을 결심했나요? 힘들 때 다시 읽어보세요..."></textarea>
-                </div>
-
-                <button class="save-start-date-btn" id="saveStartDateBtn">
-                    <i data-lucide="save"></i>
-                    저장하기
-                </button>
-                
-                <button class="clear-start-date-btn" id="clearStartDateBtn">
-                    <i data-lucide="trash-2"></i>
-                    시작일 초기화
-                </button>
-            </div>
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i data-lucide="sprout"></i>
         </div>
-    </div>
+        <h3>금연 시작일 설정</h3>
+      </div>
 
-    <!-- 도장 애니메이션 오버레이 -->
-    <div class="stamp-animation" id="stampAnimation">
-        <span class="big-stamp" id="bigStamp">👍</span>
-    </div>
+      <div class="start-date-form">
+        <p class="form-description">금연을 시작한 날짜를 선택해주세요!</p>
 
-    <script src="app.js"></script>
-    <script>
-        // Lucide 아이콘 초기화
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-        });
-    </script>
+        <div class="date-input-group">
+          <label for="startDateInput">
+            <i data-lucide="calendar"></i>
+            시작일
+          </label>
+          <input type="date" id="startDateInput">
+        </div>
+
+        <div class="motivation-input-group">
+          <label for="motivationInput">
+            <i data-lucide="lightbulb"></i>
+            금연 다짐 한마디
+          </label>
+          <textarea id="motivationInput" placeholder="왜 금연을 결심했나요? 힘들 때 다시 읽어보세요..."></textarea>
+        </div>
+
+        <button class="save-start-date-btn" id="saveStartDateBtn">
+          <i data-lucide="save"></i>
+          저장하기
+        </button>
+
+        <button class="clear-start-date-btn" id="clearStartDateBtn">
+          <i data-lucide="trash-2"></i>
+          시작일 초기화
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 도장 애니메이션 오버레이 -->
+  <div class="stamp-animation" id="stampAnimation">
+    <span class="big-stamp" id="bigStamp">👍</span>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Lucide 아이콘 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
 </body>
+
 </html>
