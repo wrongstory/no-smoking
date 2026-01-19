@@ -177,8 +177,14 @@
 
     <!-- 응원 메시지 배너 -->
     <section class="cheer-banner" id="cheerBanner">
-      <i data-lucide="heart-handshake"></i>
-      <p id="cheerMessage">오늘도 힘내요!</p>
+      <div class="cheer-content">
+        <i data-lucide="heart-handshake"></i>
+        <p id="cheerMessage">오늘도 힘내요!</p>
+      </div>
+
+      <button class="view-history-btn" id="viewCheerHistoryBtn" title="받은 응원함 보기">
+        <i data-lucide="mail"></i>
+      </button>
     </section>
 
     <!-- 캘린더 네비게이션 -->
@@ -377,6 +383,26 @@
       lucide.createIcons();
     });
   </script>
+  <div class="modal-overlay" id="cheerHistoryModalOverlay">
+    <div class="modal cheer-history-modal">
+      <button class="modal-close" id="cheerHistoryModalClose">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i data-lucide="mail-open"></i>
+        </div>
+        <h3>받은 응원 메시지</h3>
+      </div>
+
+      <div class="cheer-list-container" id="cheerListContainer">
+        <div class="empty-state">
+          <p>아직 도착한 응원이 없어요!</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

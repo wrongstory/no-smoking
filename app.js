@@ -257,6 +257,12 @@ const DataStore = {
     return this.cache.startDate;
   },
 
+  // 모든 응원 메시지 가져오기 (최신순 정렬)
+  getAllCheers() {
+    // 배열 복사 후 역순 정렬 (최신이 위로 오게)
+    return [...this.cache.cheers].reverse();
+  },
+
   // 금연 시작일 삭제
   async clearStartDate() {
     this.cache.startDate = null;
@@ -860,6 +866,72 @@ const StartDateModal = {
 };
 
 // ============================================
+// 응원 히스토리 모달 모듈 (신규)
+// ============================================
+const CheerHistoryModal = {
+  init() {
+    this.bindEvents();
+  },
+
+  bindEvents() {
+    // 우체통 버튼 클릭
+    const btn = document.getElementById('viewCheerHistoryBtn');
+    if (btn) btn.addEventListener('click', () => this.open());
+
+    // 닫기 버튼
+    const closeBtn = document.getElementById('cheerHistoryModalClose');
+    if (closeBtn) closeBtn.addEventListener('click', () => this.close());
+
+    // 배경 클릭 닫기
+    const overlay = document.getElementById('cheerHistoryModalOverlay');
+    if (overlay) overlay.addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) this.close();
+    });
+  },
+
+  open() {
+    this.renderList();
+    document.getElementById('cheerHistoryModalOverlay').classList.add('active');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  },
+
+  close() {
+    document.getElementById('cheerHistoryModalOverlay').classList.remove('active');
+  },
+
+  renderList() {
+    const listContainer = document.getElementById('cheerListContainer');
+    const cheers = DataStore.getAllCheers();
+
+    listContainer.innerHTML = '';
+
+    if (cheers.length === 0) {
+      listContainer.innerHTML = `
+        <div class="empty-state">
+          <i data-lucide="inbox"></i>
+          <p>아직 도착한 응원이 없어요 😢<br>명우님에게 응원을 부탁해보세요!</p>
+        </div>`;
+      return;
+    }
+
+    cheers.forEach(item => {
+      const date = new Date(item.timestamp);
+      const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+      const el = document.createElement('div');
+      el.className = 'cheer-item';
+      el.innerHTML = `
+        <div class="cheer-bubble">
+          <p>${item.message}</p>
+          <span class="cheer-date">${dateStr}</span>
+        </div>
+      `;
+      listContainer.appendChild(el);
+    });
+  }
+};
+
+// ============================================
 // 앱 메인 모듈
 // ============================================
 const App = {
@@ -968,6 +1040,7 @@ const App = {
     Calendar.init();
     Modal.init();
     StartDateModal.init();
+    CheerHistoryModal.init();
     this.updateStartDateDisplay();
     this.updateStats();
     this.updateCheerBanner();
