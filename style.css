@@ -1,0 +1,1143 @@
+/* ============================================
+   금연 캘린더 - 스타일시트
+   밝고 따뜻한 파스텔 톤 디자인
+   ============================================ */
+
+/* CSS 변수 정의 - 테마 색상 */
+:root {
+    --primary: #FF9A9E;
+    --primary-light: #FECFEF;
+    --secondary: #A8EDEA;
+    --secondary-light: #FED6E3;
+    --success: #A8E6CF;
+    --success-dark: #56C596;
+    --fail: #FFB7B2;
+    --fail-dark: #FF6B6B;
+    --warning: #FFEAA7;
+    --background: #FFF5F5;
+    --card-bg: #FFFFFF;
+    --text-primary: #5D5D5D;
+    --text-secondary: #8B8B8B;
+    --shadow: rgba(255, 154, 158, 0.2);
+    --border-radius: 16px;
+}
+
+/* 기본 리셋 및 폰트 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, var(--background) 0%, var(--primary-light) 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* ============================================
+   로그인 화면 스타일
+   ============================================ */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 10px 40px var(--shadow);
+    text-align: center;
+}
+
+.login-header {
+    margin-bottom: 32px;
+}
+
+.login-header h1 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.login-form {
+    margin-bottom: 24px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.input-group select,
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #EEE;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    background: white;
+}
+
+.input-group select:focus,
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, #FF6B95 100%);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.login-error {
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--fail);
+    border-radius: 8px;
+    color: #C0392B;
+    font-size: 0.9rem;
+}
+
+.login-hint {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   헤더 수정 스타일
+   ============================================ */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.header-top h1 {
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+
+.logout-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: #F5F5F5;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: var(--fail);
+    color: white;
+}
+
+.current-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #FFE4EC 100%);
+    border-radius: 30px;
+}
+
+.user-badge {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-role {
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    background: white;
+    border-radius: 20px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* 연결 상태 표시 */
+.connection-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FFC107;
+    animation: pulse 2s infinite;
+}
+
+.connection-status.online .status-dot {
+    background: #4CAF50;
+    animation: none;
+}
+
+.connection-status.offline .status-dot {
+    background: #FF9800;
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* 앱 컨테이너 */
+.app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.app-container.hidden {
+    display: none;
+}
+
+.login-container.hidden {
+    display: none;
+}
+
+/* ============================================
+   헤더 스타일
+   ============================================ */
+.app-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+/* 모드 전환 버튼 */
+.mode-switch {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    background: var(--card-bg);
+    padding: 6px;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 24px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.mode-btn:hover:not(.active) {
+    background: var(--primary-light);
+}
+
+/* ============================================
+   금연 시작일 배너
+   ============================================ */
+.start-date-banner {
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+    border-radius: var(--border-radius);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.15);
+}
+
+.start-date-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.start-date-icon {
+    font-size: 2rem;
+}
+
+.start-date-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.start-date-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.start-date-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2E7D32;
+}
+
+.days-since {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.days-count {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #FF6B6B;
+    line-height: 1;
+}
+
+.days-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.edit-start-date-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.edit-start-date-btn:hover {
+    transform: scale(1.1);
+    background: #FFF9C4;
+}
+
+/* ============================================
+   시작일 설정 모달
+   ============================================ */
+.start-date-modal {
+    max-width: 380px;
+}
+
+.start-date-form {
+    text-align: center;
+}
+
+.form-description {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.date-input-group,
+.motivation-input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.date-input-group label,
+.motivation-input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.date-input-group input[type="date"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #EEE;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.date-input-group input[type="date"]:focus {
+    outline: none;
+    border-color: var(--success-dark);
+}
+
+.motivation-input-group textarea {
+    width: 100%;
+    height: 80px;
+    padding: 12px;
+    border: 2px solid #EEE;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.motivation-input-group textarea:focus {
+    outline: none;
+    border-color: var(--success-dark);
+}
+
+.save-start-date-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+}
+
+.save-start-date-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(86, 197, 150, 0.4);
+}
+
+.clear-start-date-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #F5F5F5;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-start-date-btn:hover {
+    background: var(--fail);
+    color: white;
+}
+
+/* ============================================
+   통계 대시보드
+   ============================================ */
+.stats-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.stat-card.streak .stat-value { color: #FF6B6B; }
+.stat-card.best .stat-value { color: #FFD93D; }
+.stat-card.total .stat-value { color: var(--success-dark); }
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   월별 성공률 프로그레스 바
+   ============================================ */
+.monthly-progress {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.progress-header span:last-child {
+    font-weight: bold;
+    color: var(--success-dark);
+}
+
+.progress-bar {
+    height: 12px;
+    background: #EEE;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success) 0%, var(--success-dark) 100%);
+    border-radius: 6px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* ============================================
+   응원 메시지 배너
+   ============================================ */
+.cheer-banner {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    border-radius: var(--border-radius);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+@keyframes gentle-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+}
+
+.cheer-icon {
+    font-size: 1.5rem;
+}
+
+.cheer-banner p {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-style: italic;
+}
+
+/* ============================================
+   캘린더 네비게이션
+   ============================================ */
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.calendar-nav h2 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: var(--primary);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ============================================
+   캘린더 그리드
+   ============================================ */
+.calendar-container {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    box-shadow: 0 4px 15px var(--shadow);
+    margin-bottom: 16px;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.calendar-weekdays span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.calendar-weekdays span:first-child { color: #FF6B6B; }
+.calendar-weekdays span:last-child { color: #5B9BD5; }
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+/* 날짜 셀 스타일 */
+.day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    font-size: 0.9rem;
+    background: #FAFAFA;
+}
+
+.day-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.day-cell.today {
+    border: 2px solid var(--primary);
+    font-weight: bold;
+}
+
+.day-cell.other-month {
+    color: #CCC;
+    background: transparent;
+}
+
+.day-cell.success {
+    background: linear-gradient(135deg, var(--success) 0%, #B8F0D8 100%);
+    color: var(--text-primary);
+}
+
+.day-cell.fail {
+    background: linear-gradient(135deg, var(--fail) 0%, #FFCBC7 100%);
+    color: var(--text-primary);
+}
+
+.day-cell.has-record {
+    font-weight: 500;
+}
+
+/* 날짜 셀 내 도장 표시 */
+.day-stamp {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.7rem;
+    animation: stamp-wobble 0.5s ease;
+}
+
+@keyframes stamp-wobble {
+    0% { transform: scale(0) rotate(-20deg); }
+    50% { transform: scale(1.3) rotate(10deg); }
+    100% { transform: scale(1) rotate(-5deg); }
+}
+
+/* ============================================
+   범례
+   ============================================ */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+}
+
+.legend-dot.success { background: var(--success); }
+.legend-dot.fail { background: var(--fail); }
+.legend-dot.empty { background: #EEE; border: 1px dashed #CCC; }
+
+/* ============================================
+   모달 스타일
+   ============================================ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: var(--card-bg);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: #F5F5F5;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: var(--fail);
+    color: white;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+/* 모달 컨텐츠 공통 */
+.modal-content {
+    transition: opacity 0.3s ease;
+}
+
+.modal-content.hidden {
+    display: none;
+}
+
+/* 금연 체크 버튼 */
+.smoking-check {
+    margin-bottom: 20px;
+}
+
+.smoking-check p {
+    text-align: center;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.check-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.check-btn {
+    padding: 16px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.success-btn {
+    background: var(--success);
+    color: var(--text-primary);
+}
+
+.success-btn:hover, .success-btn.active {
+    background: var(--success-dark);
+    color: white;
+    transform: scale(1.02);
+}
+
+.fail-btn {
+    background: #F5F5F5;
+    color: var(--text-secondary);
+}
+
+.fail-btn:hover, .fail-btn.active {
+    background: var(--fail);
+    color: white;
+    transform: scale(1.02);
+}
+
+/* 메모 섹션 */
+.memo-section {
+    margin-bottom: 20px;
+}
+
+.memo-section label,
+.cheer-input-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.memo-section textarea,
+.cheer-input-section textarea {
+    width: 100%;
+    height: 80px;
+    padding: 12px;
+    border: 2px solid #EEE;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.memo-section textarea:focus,
+.cheer-input-section textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* 저장 버튼 */
+.save-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+/* 파트너 모드 - 기록 표시 */
+.record-display {
+    background: #FAFAFA;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.record-status {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.record-memo {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* 도장 버튼 섹션 */
+.stamp-section {
+    margin-bottom: 20px;
+}
+
+.stamp-section p {
+    text-align: center;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.stamp-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.stamp-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border: 2px solid #EEE;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stamp-btn:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.stamp-btn.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.stamp-btn.negative:hover {
+    border-color: var(--fail-dark);
+}
+
+.stamp-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.stamp-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+/* 응원 메시지 입력 */
+.cheer-input-section {
+    margin-bottom: 16px;
+}
+
+.cheer-save-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--secondary) 0%, #7EC8E3 100%);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cheer-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 237, 234, 0.4);
+}
+
+/* 현재 도장 표시 */
+.current-stamp {
+    text-align: center;
+    margin-top: 16px;
+    min-height: 40px;
+}
+
+.current-stamp .stamp-display {
+    display: inline-block;
+    font-size: 2rem;
+    animation: stamp-wobble 0.5s ease;
+}
+
+/* ============================================
+   도장 애니메이션 오버레이
+   ============================================ */
+.stamp-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stamp-animation.active {
+    opacity: 1;
+}
+
+.big-stamp {
+    font-size: 8rem;
+    animation: big-stamp-pop 0.6s ease forwards;
+}
+
+@keyframes big-stamp-pop {
+    0% { 
+        transform: scale(0) rotate(-30deg); 
+        opacity: 0;
+    }
+    50% { 
+        transform: scale(1.2) rotate(10deg); 
+        opacity: 1;
+    }
+    70% {
+        transform: scale(0.9) rotate(-5deg);
+    }
+    100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   반응형 디자인
+   ============================================ */
+@media (max-width: 400px) {
+    .app-container {
+        padding: 16px;
+    }
+    
+    .stats-dashboard {
+        gap: 8px;
+    }
+    
+    .stat-card {
+        padding: 12px 8px;
+    }
+    
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+    
+    .stat-value {
+        font-size: 1.2rem;
+    }
+    
+    .stamp-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mode-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================
+   유틸리티 클래스
+   ============================================ */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
